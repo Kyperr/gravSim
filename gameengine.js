@@ -39,7 +39,8 @@ function GameEngine() {
     this.wheel = null;
     this.surfaceWidth = null;
     this.surfaceHeight = null;
-    this.paused = false;
+    this.paused = true;
+    this.timeElapsed = 0;
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -120,8 +121,8 @@ GameEngine.prototype.draw = function () {
 GameEngine.prototype.update = function () {
 
     if (this.creating && this.beingCreated !== null) {
-        console.log("growing: " + this.timer.tick());
-        this.beingCreated.radius += 50 * this.timer.tick();
+        console.log("ft " + this.fauxTick);
+        this.beingCreated.radius += 5 * this.fauxTick;
     } else if (!this.creating && this.beingCreated !== null){
         this.addEntity(this.beingCreated);
         this.beingCreated = null;
@@ -149,9 +150,13 @@ GameEngine.prototype.update = function () {
 }
 
 GameEngine.prototype.loop = function () {
-    this.clockTick = this.timer.tick();
+    var thisTick = this.timer.tick();
+    this.clockTick = thisTick;
+    this.fauxTick = thisTick;
     if(this.paused){
         this.clockTick = 0;
+    } else {
+        this.timeElapsed += thisTick;
     }
     this.update();
     this.draw();

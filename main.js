@@ -38,6 +38,7 @@ ASSET_MANAGER.downloadAll(function () {
     document.addEventListener("keydown", function (e) {
         console.log("keycode: " + e.keyCode)
         if (e.keyCode == 82) {
+            gameEngine.timeElapsed = 0;
             for (var i = 0; i < gameEngine.entities.length; i++) {
                 gameEngine.entities[i].x = gameEngine.entities[i].startingX;
                 gameEngine.entities[i].y = gameEngine.entities[i].startingY;
