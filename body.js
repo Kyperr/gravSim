@@ -1,4 +1,5 @@
 const WEIGHT_PER_UNIT = 1;
+const DISTANCE_PER_UNIT = 10;
 
 function Body(game, size, x, y) {
     this.player = 1;
@@ -77,17 +78,18 @@ Body.prototype.update = function () {
                     collisionCount++;
                 }
 
-                var dist = distance(this, ent);
 
                 var dX = this.x - ent.x;
                 var dY = this.y - ent.y;
+
+                var distance = Math.sqrt(dX * dX + dY * dY);
 
                 var rAngle = Math.atan2(dY, dX) * -1;
 
                 var thisMass = WEIGHT_PER_UNIT * (Math.PI * this.radius ^ 2);
                 var entMass = WEIGHT_PER_UNIT * (Math.PI * ent.radius ^ 2);
 
-                var gravitationalForce = thisMass * entMass / distance ^ 2;
+                var gravitationalForce = thisMass * entMass / (distance*DISTANCE_PER_UNIT) ^ 2;
                 gravitationalForce *= entMass / thisMass;
 
                 this.velocity.x += gravitationalForce * Math.cos(rAngle) * this.game.clockTick;
@@ -116,4 +118,3 @@ Body.prototype.draw = function (ctx) {
         ctx.closePath();
     }
 };
-
