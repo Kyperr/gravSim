@@ -2,21 +2,13 @@ const WEIGHT_PER_UNIT = 1;
 const DISTANCE_PER_UNIT = 100;
 
 function Body(game, size, x, y) {
-    this.player = 1;
+    Entity.call(this, game, x, y);
     this.radius = size;
     this.color = "White"
     this.startingX = x;
     this.startingY = y;
     this.timeCreated = (()=>{return game.timeElapsed})();
-    Entity.call(this, game, x, y);//, );
-
     this.velocity = { x: 0, y: 0 };
-    var speed = Math.sqrt(this.velocity.x * this.velocity.x + this.velocity.y * this.velocity.y);
-    /*if (speed > maxSpeed) {
-        var ratio = maxSpeed / speed;
-        this.velocity.x *= ratio;
-        this.velocity.y *= ratio;
-    }*/
 };
 
 Body.prototype = new Entity();
