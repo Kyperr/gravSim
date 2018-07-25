@@ -1,6 +1,6 @@
 
 // GameBoard code below
-var socket = io.connect("http://24.16.255.56:8888");
+//var socket = io.connect("http://24.16.255.56:8888");
 
 function distance(a, b) {
     var dx = a.x - b.x;
@@ -28,7 +28,7 @@ ASSET_MANAGER.downloadAll(function () {
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
 
-    socket.on("load", function (data) {
+    /*socket.on("load", function (data) {
         console.log(data)
         gameEngine.entities = [];
         var dataArray = JSON.parse(data.data);
@@ -47,7 +47,7 @@ ASSET_MANAGER.downloadAll(function () {
 
             gameEngine.entities.push(body);
         }
-    });
+    });*/
 
     document.addEventListener("keydown", function (e) {
         console.log("keycode: " + e.keyCode)
@@ -68,22 +68,22 @@ ASSET_MANAGER.downloadAll(function () {
                 gameEngine.entities[i].velocity.y = 0;
             }
         }
-        if(e.keyCode == 76){
-            socket.emit("load", { studentname: "Daniel McBride", statename: "theState" });
-        }
-        if(e.keyCode == 83){
-            var msg = JSON.stringify(gameEngine.entities, (k, v) => {
-                console.log("k: " + k);
-                console.log(v.constructor.name);
-                console.log(v);
-                if(v.constructor.name === 'GameEngine'){
-                    return undefined;
-                }
-                return v;
-            });
-            console.log(msg);
-            socket.emit("save", { studentname: "Daniel McBride", statename: "theState", data: msg });
-        }
+//         if(e.keyCode == 76){
+//             socket.emit("load", { studentname: "Daniel McBride", statename: "theState" });
+//         }
+//         if(e.keyCode == 83){
+//             var msg = JSON.stringify(gameEngine.entities, (k, v) => {
+//                 console.log("k: " + k);
+//                 console.log(v.constructor.name);
+//                 console.log(v);
+//                 if(v.constructor.name === 'GameEngine'){
+//                     return undefined;
+//                 }
+//                 return v;
+//             });
+//             console.log(msg);
+//             socket.emit("save", { studentname: "Daniel McBride", statename: "theState", data: msg });
+//         }
 
     }, false);
 
